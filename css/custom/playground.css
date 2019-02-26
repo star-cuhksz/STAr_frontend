@@ -294,7 +294,7 @@ table {
 }
 
 #fanE.on {
-	background-image: url("../../images/fanE_off1.png");
+	background-image: url("../../images/fanE_on1.png");
 }
 
 #fanW.off {
@@ -310,4 +310,9 @@ table {
 	/*background-image: url(../../images/red-01.png);*/
 	/*background-size: contain;*/
 	/*background-repeat: no-repeat;*/
+}
+
+.fan {
+	background-position: center;
+	background-size: contain;
 }
