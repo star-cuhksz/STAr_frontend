@@ -5,14 +5,14 @@
     <title>STAr - Playground</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/custom/playground.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <script type="text/javascript" src="js/control.js"></script>
-    <script type="text/javascript" src="js/infoUpdate.js"></script>
     <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="js/popper.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/control.js"></script>
+    <script type="text/javascript" src="js/infoUpdate.js"></script>
     <script type="text/javascript" src="js/custom/playground.js"></script>
     <script>
         var _hmt = _hmt || [];
@@ -146,6 +146,13 @@
                     <div class="fan off mx-auto" id="fanE" title="Click to turn on"></div><br>
                     <!--<video src="video/exp.mp4" type="video/mp4" autoplay="autoplay" loop="loop" controls="controls"></video><br>-->
                     <img id="receiver" style="width:100%;height:80vh"> <br><br>
+                        <script type="text/javascript" charset="utf-8">
+        var receiver_socket = new WebSocket("ws://" + "1k8c508399.imwork.net:10876");
+        var image = document.getElementById('receiver');
+        receiver_socket.onmessage = function (data) {
+            image.src = data.data;
+        }
+    </script>
                     <div class="fan off mx-auto" id="fanW" title="Click to turn on">
                     </div>
                     <div class="container">
