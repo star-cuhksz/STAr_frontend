@@ -2,9 +2,294 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>STAr - Playground</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/custom/playground.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script type="text/javascript" src="js/control.js"></script>
+    <script type="text/javascript" src="js/infoUpdate.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/custom/playground.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?7a84e6b49690c9547fc8f6fe093486b6";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <script type="text/javascript" charset="utf-8">
+        var receiver_socket = new WebSocket("ws://" + "1k8c508399.imwork.net:10876");
+        var image = document.getElementById('receiver');
+        receiver_socket.onmessage = function (data) {
+            image.src = data.data;
+        }
+    </script>
+    <!-- Support keyboard control -->
+    <script>
+        window.onload = function () {
+            var current = 0;
+            document.getElementById('mid').onclick = function () {
+                current = (current + 15) % 360;
+                this.style.transform = 'rotate(' + current + 'deg)';
+            }
+        }
+
+        var mid = document.getElementById("mid");
+        //给mid设置事件的监听
+        window.document.onkeydown = function (ent) {
+            var event = ent || window.event;
+            switch (event.keyCode) {
+                // 监听键盘操作
+                case 87:  	// Press KeyW
+                    //UP();
+                    DIRECU();
+                    break;
+                case 83:  	// Press KeyS
+                    //DOWN();
+                    DIRECD();
+                    break;
+                case 65:  	// Press KeyA
+                    //LEFT();
+                    DIRECL();
+                    break;
+                case 68:  	// Press KeyD
+                    //RIGHT();
+                    DIRECR();
+                    break;
+                case 82: 	// Press KeyR
+                    WINDW();	// Turn on West fan (bottom)
+                    document.getElementById('fanW').src='./images/fanW_on1.png';
+                    break;
+                case 84: 	// Press KeyT
+                    WINDE();	// Turn on East fan (top)
+                    document.getElementById('fanE').src='./images/fanE_on1.png';
+                    break;
+                case 70:  	// Press KeyF
+                    WINDWC();	// Turn off West fan (bottom)
+                    document.getElementById('fanW').src='./images/fanW_off1.png';
+                    break;
+                case 71:  	// Press KeyG
+                    WINDEC();	// Turn off East fan (top)
+                    document.getElementById('fanE').src='./images/fanE_off1.png';
+                    break;
+                case 67: 	// Press KeyC
+                    LED(); 	// Turn on the light
+                    break;
+                case 86: 	//Press KeyV
+                    LEDC();	// Turn off the light
+                    break;
+                case 72:  	//Press KeyH
+                    WINDW();
+                    break;
+                case 74:  //Press KeyJ
+                    WINDWC();
+                    break;
+                case 73: //Press KeyI
+                    LU();
+                    break;
+                case 79: //Press KeyO
+                    RU();
+                    break;
+                case 75: //Press KeyK
+                    LD();
+                    break;
+                case 76: //Press KeyL
+                    RD();
+                    break;
+                case 37:  // Press ArrowLeft
+                    HA();
+                    break;
+                case 38:  // Press ArrowUp
+                    HW();
+                    break;
+                case 39:  // Press ArrowRight
+                    HD();
+                    break;
+                case 40:  // Press ArrowDown
+                    HS();
+                    break;
+                // default:
+                // need some prompt message here
+            }
+        }
+    </script>
 </head>
-<body>
-$END$
+
+<body onload="Autofresh();KBCONTROL()" data-gr-c-s-loaded="true" style="user-select: auto;">
+    <div class="bg-cover" style="background:url('images/background.jpg') no-repeat fixed center"></div>
+    <div class="bg-faded"></div>
+    <div class="main-body container text-center">
+        <div class="cover-container d-flex p-3 mx-auto flex-column">
+            <header class="masthead mb-auto">
+                <div class="inner">
+                    <a class="masthead-brand" href="index.html">
+                        <img src="images/icon.png" alt="" class="">
+                    </a>
+                    <nav class="nav nav-masthead justify-content-center">
+                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link active" href="#">Playground</a>
+                        <a class="nav-link" href="#">Info</a>
+                    </nav>
+                </div>
+            </header>
+        </div>
+        <div class="d-flex w-100 p-3 mx-auto flex-column">
+            <main role="main" class="inner cover">
+                <div class="realtimeVideo" style="color:#FFFFFF" id="receiver123">
+                    <p>If there is no image or sailboat, please email liuhengli@cuhk.edu.cn <br> or make an <b><a href="index.html#video-section">appointment</a></b>.</p>
+                    <div class="fan off mx-auto" id="fanE" title="Click to turn on"></div><br>
+                    <!--<video src="video/exp.mp4" type="video/mp4" autoplay="autoplay" loop="loop" controls="controls"></video><br>-->
+                    <img id="receiver" style="width:100%;height:80vh"> <br><br>
+                    <div class="fan off mx-auto" id="fanW" title="Click to turn on">
+                    </div>
+                    <div class="container">
+                        <section class="key-indices-container">
+                            <div>
+                                <input id="ac-3" name="accordion-3" type="checkbox" />
+                                <label for="ac-3">Key Indices</label>
+                                <article class="ac-medium">
+                                    <div id="key-indices">
+                                        <table id="key-indices-table">
+                                            <tr>
+                                                <th>Firstname</th>
+                                                <th>Function</th>
+                                            </tr>
+                                            <tr>
+                                                <td>W</td>
+                                                <td>sail - Tight</td>
+                                            </tr>
+                                            <tr>
+                                                <td>S</td>
+                                                <td>sail - Loose</td>
+                                            </tr>
+                                            <tr>
+                                                <td>A</td>
+                                                <td>rudder - Turn left</td>
+                                            </tr>
+                                            <tr>
+                                                <td>D</td>
+                                                <td>rudder - Turn Right</td>
+                                            </tr>
+                                            <tr>
+                                                <td>R</td>
+                                                <td>Fan array A - Turn on</td>
+                                            </tr>
+                                            <tr>
+                                                <td>F</td>
+                                                <td>Fan array A - Turn off</td>
+                                            </tr>
+                                            <tr>
+                                                <td>T</td>
+                                                <td>Fan array B - Turn on</td>
+                                            </tr>
+                                            <tr>
+                                                <td>G</td>
+                                                <td>Fan array B - Turn off</td>
+                                            </tr>
+                                            <tr>
+                                                <td>C</td>
+                                                <td>LED Strip - Turn on</td>
+                                            </tr>
+                                            <tr>
+                                                <td>V</td>
+                                                <td>LED Strip - Turn off</td>
+                                            </tr>
+                                            <tr>
+                                                <td>I</td>
+                                                <td>Motors - Accelerate</td>
+                                            </tr>
+                                            <tr>
+                                                <td>K</td>
+                                                <td>Motors - Decelerate & Reverse</td>
+                                            </tr>
+                                            <tr>
+                                                <td>J</td>
+                                                <td>Motors - Turn left</td>
+                                            </tr>
+                                            <tr>
+                                                <td>L</td>
+                                                <td>Motors - Turn right</td>
+                                            </tr>
+                                            <tr>
+                                                <td>M</td>
+                                                <td>Change Mode</td>
+                                            </tr>
+                                            <tr>
+                                                <td>H</td>
+                                                <td>Set Heading angle</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </article>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="container">
+                        <section class="ac-container">
+                            <div>
+                                <input id="ac-1" name="accordion-1" type="checkbox">
+                                <label for="ac-1">Canvas</label>
+                                <article class="ac-small">
+                                    <div class="new-canvas" id="myCanvas"> <img src="images/boat.png" id="mid" width="417" height="417">
+                                        <div class="info"> <span>See here: </span><span id="test"></span> <br>
+                                            <span>PositionX: </span><span id="positionX"></span> <br>
+                                            <span>PositionY: </span><span id="positionY"></span> <br>
+                                            <span>Angle: </span> <span id="angle"></span> <br>
+                                            <div class="meter round-conner">
+                                                <div id="angleBar" class="round-conner"></div>
+                                            </div>
+                                            <span>Back: </span> <span id="back"></span> <br>
+                                            <span>Back2: </span> <span id="back2"></span> <br>
+                                            <div class="meter round-conner">
+                                                <div id="back2Bar" class="round-conner"></div>
+                                            </div>
+                                            <span>Fan1 &emsp; Fan2</span> <br>
+                                            <img src="images/fanE_off.png" class="fanC" id="fanE_C" onclick="WINDE()" title="Click to turn on"> <span> &emsp; </span> <img src="images/fanW_off.png" class="fanC" id="fanW_C" onclick="WINDW()" title="Click to turn on"> <br>
+                                            <a href="javascript:void(0)" class="button" id="switch" onclick="Autofresh()">SWITCH</a> </div>
+                                    </div>
+                                </article>
+                            </div>
+                            <div>
+                                <input id="ac-2" name="accordion-1" type="checkbox">
+                                <label for="ac-2">Control Menu</label>
+                                <article class="ac-medium">
+                                    <div id="sail">
+                                        <h3>Change sail angle:</h3>
+                                        <h3 id="sail_angle"></h3>
+                                        <a href="javascript:void(0)" class="butgroup"> </a><a href="javascript:void(0)" class="button" onclick="DOWN()">DOWN</a> <a href="javascript:void(0)" class="button" onclick="UP()">UP</a> <a href="javascript:void(0)" class="button" onclick="SAILSETMAX()">SET TO MAX</a> <a href="javascript:void(0)" class="button" onclick="SAILRESET()">RESET</a>  </div>
+                                    <div id="rudder">
+                                        <h3>Change rudder angle:</h3>
+                                        <h3 id="rudder_angle"></h3>
+                                        <a href="javascript:void(0)" class="butgroup"></a><a href="javascript:void(0)" class="button" onclick="LEFT()">LEFT</a> <a href="javascript:void(0)" class="button" onclick="RIGHT()">RIGHT</a> <a href="javascript:void(0)" class="button" onclick="RUDDERSET45()">SET TO 45°</a> <a href="javascript:void(0)" class="button" onclick="RUDDERRESET()">RESET</a> </div>
+                                    <div id="relay">
+                                        <h3>Change environment:</h3>
+                                        <h3 id="env_ironment"></h3>
+                                        <a href="javascript:void(0)" class="butgroup"></a><a href="javascript:void(0)" class="button" onclick="LED()">LED</a> <a href="javascript:void(0)" class="button" onclick="LEDC()">LEDC</a> <a href="javascript:void(0)" class="button" onclick="WINDE()">WINDE</a> <a href="javascript:void(0)" class="button" onclick="WINDEC()">WINDEC</a> </div>
+                                    <div id="8802">
+                                        <h3>Change direction:</h3>
+                                        <h3 id="dir_ection"></h3>
+                                        <a href="javascript:void(0)" class="butgroup"></a><a href="javascript:void(0)" class="button" onclick="DIRECL()">LEFT</a> <a href="javascript:void(0)" class="button" onclick="DIRECR()">RIGHT</a> <a href="javascript:void(0)" class="button" onclick="DIRECD()">DOWN</a> <a href="javascript:void(0)" class="button" onclick="DIRECU()">UP</a> </div>
+                                </article>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
+            <footer class="mastfoot mt-5">
+                <div class="inner">
+                    <p>Develop by <a href="#">STAr</a><a> group.</a></p><a>
+                    <small>Cover template by </small></a><small><a href="https://getbootstrap.com/">Bootstrap</a></small>
+                </div>
+            </footer>
+        </div>
+    </div>
 </body>
 </html>

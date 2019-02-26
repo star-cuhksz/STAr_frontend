@@ -186,11 +186,7 @@ h3 {
 }
 div {
 }
-.realtimeVideo {
-	text-align: center;
-	background-image: url(../../images/red-01.png);
-	background-size: contain;/*	background-repeat: no-repeat;*/
-}
+
 #angleBar {
 	background: #DFDFDF;
 	margin: 0em;
@@ -291,4 +287,27 @@ div {
 }
 table {
 	border-spacing: 1px;
+}
+
+#fanE.off {
+	background-image: url("../../images/fanE_off1.png");
+}
+
+#fanE.on {
+	background-image: url("../../images/fanE_off1.png");
+}
+
+#fanW.off {
+	background-image: url("../../images/fanW_off1.png");
+}
+
+#fanW.on {
+	background-image: url("../../images/fanW_on1.png");
+}
+
+.realtimeVideo {
+	text-align: center;
+	/*background-image: url(../../images/red-01.png);*/
+	/*background-size: contain;*/
+	/*background-repeat: no-repeat;*/
 }
